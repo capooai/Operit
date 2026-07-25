@@ -34,6 +34,10 @@ class TokenStatisticsDelegate(
     private val _perRequestTokenCount = MutableStateFlow<Pair<Int, Int>?>(null)
     val perRequestTokenCountFlow: StateFlow<Pair<Int, Int>?> = _perRequestTokenCount.asStateFlow()
 
+    /** 缓存命中的输入 token 数（用于 Reasonix 前缀缓存命中率计算） */
+    private val _cachedInputTokens = MutableStateFlow(0L)
+    val cachedInputTokensFlow: StateFlow<Long> = _cachedInputTokens.asStateFlow()
+
     // --- Internal State ---
     private var lastCurrentWindowSize = 0L
     private var tokenCollectorJob: Job? = null
@@ -188,6 +192,12 @@ class TokenStatisticsDelegate(
                 // 从AI服务获取最新的token统计
                 val currentInputTokens = it.getCurrentInputTokenCount().toLong().coerceAtLeast(0L)
                 val currentOutputTokens = it.getCurrentOutputTokenCount().toLong().coerceAtLeast(0L)
+                val currentCachedInputTokens = it.getCurrentCachedInputTokenCount().toLong().coerceAtLeast(0L)
+
+                // 更新缓存命中 token 数（最新值，非累计）
+                if (isActiveKey(key)) {
+                    _cachedInputTokens.value = currentCachedInputTokens
+                }
 
                 // 更新累计token数
                 val newInput = (cumulativeInputTokensByChatKey[key] ?: 0L) + currentInputTokens
