@@ -301,6 +301,7 @@ class ChatViewModel(private val context: Context) : ViewModel() {
     val currentWindowSize: StateFlow<Long> by lazy { tokenStatsDelegate.currentWindowSizeFlow }
     val inputTokenCount: StateFlow<Long> by lazy { tokenStatsDelegate.cumulativeInputTokensFlow }
     val outputTokenCount: StateFlow<Long> by lazy { tokenStatsDelegate.cumulativeOutputTokensFlow }
+    val cachedInputTokenCount: StateFlow<Long> by lazy { tokenStatsDelegate.cachedInputTokensFlow }
     val perRequestTokenCount: StateFlow<Pair<Int, Int>?> by lazy { tokenStatsDelegate.perRequestTokenCountFlow }
 
 

@@ -58,7 +58,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 import java.util.Locale
 
-private const val GITHUB_PROJECT_URL = "https://github.com/AAswordman/Operit"
+private const val GITHUB_PROJECT_URL = "https://github.com/capooai/Operit"
+private const val GITHUB_REASONIX_URL = "https://github.com/AAswordman/Operit"
 
 private enum class PatchUpdatePhase {
     SELECTING_MIRROR,
@@ -1034,6 +1035,52 @@ fun AboutScreen(
                         .fillMaxWidth()
                         .padding(vertical = 6.dp)
                 )
+            }
+
+            // Reasonix 注入模块说明
+            item {
+                Card(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp, vertical = 8.dp),
+                    colors = CardDefaults.cardColors(
+                        containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+                    )
+                ) {
+                    Column(modifier = Modifier.padding(16.dp)) {
+                        Text(
+                            text = "🧠 Reasonix 核心模块注入",
+                            style = MaterialTheme.typography.titleSmall.copy(
+                                fontWeight = FontWeight.Bold
+                            ),
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            text = "本版本基于 Operit 上游项目，注入了 DeepSeek-Reasonix 的 5 个核心算法模块：",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant
+                        )
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = "• 多级上下文压缩 (ContextManager)\n" +
+                                   "• Prefix Cache 优化 (ReasonixDeepseekProvider)\n" +
+                                   "• 双模型规划模式 (PlanCoordinator)\n" +
+                                   "• BM25 关键词搜索 (Bm25Searcher)\n" +
+                                   "• 会话检查点/回滚/分支 (CheckpointManager)",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurface
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        HtmlText(
+                            html = "上游项目: <a href='https://github.com/AAswordman/Operit'>AAswordman/Operit</a> · " +
+                                   "<a href='https://github.com/capooai/Operit'>capooai/Operit (Fork)</a>",
+                            style = MaterialTheme.typography.bodySmall.copy(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        )
+                    }
+                }
             }
         }
     }

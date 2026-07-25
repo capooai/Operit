@@ -586,9 +586,9 @@
     <string name="about_title">关于 Operit AI</string>
     <string name="about_version">版本: %1$s</string>
     <string name="about_description">Operit AI是一个智能助手应用，能够帮助用户更高效地使用设备，提供界面分析、聊天对话等功能。</string>
-    <string name="about_developer">开发者: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt;</string>
-    <string name="about_contact">联系我们: aaswordsman@foxmail.com</string>
-    <string name="about_website">&lt;a href="https://github.com/AAswordman/Operit"&gt;GitHub: https://github.com/AAswordman/Operit&lt;/a&gt;</string>
+    <string name="about_developer">原作者: &lt;a href="https://github.com/AAswordman"&gt;AAswordman&lt;/a&gt; · Fork: &lt;a href="https://github.com/capooai"&gt;capooai&lt;/a&gt;</string>
+    <string name="about_contact">联系我们: icxz@foxmail.com</string>
+    <string name="about_website">&lt;a href="https://github.com/capooai/Operit"&gt;GitHub: https://github.com/capooai/Operit&lt;/a&gt;</string>
     <string name="about_copyright">© 2025 - 2026 Operit. 保留所有权利。</string>
     <string name="star_on_github">在 GitHub 点个 Star</string>
     <string name="update_log">更新日志</string>
@@ -4376,6 +4376,10 @@
     <string name="github_account">GitHub 账户</string>
     <string name="login_github">登录 GitHub</string>
     <string name="github_login_external_waiting">已打开浏览器，请在完成授权后返回应用。</string>
+    <string name="github_login_method_description">请选择 GitHub 登录方式。内嵌方式适用于无法打开外部浏览器的设备，外部浏览器方式提供更好的兼容性。</string>
+    <string name="github_login_method_embedded">使用内嵌页面登录</string>
+    <string name="github_login_method_external">使用外部浏览器登录</string>
+    <string name="github_login_external_cancelled">GitHub 授权已取消</string>
     <string name="publish_mcp_plugins_to_market">• 发布您的 MCP 插件到市场</string>
     <string name="manage_published_plugins">• 管理您已发布的插件</string>
     <string name="better_installation_experience">• 获得更好的安装体验</string>
@@ -7981,5 +7985,9 @@
     <string name="notification_kind_review_rejected">未通过审核</string>
     <string name="notification_kind_review_changes">需要修改</string>
     <string name="notification_kind_entry_curated">入选精选</string>
+
+    <!-- Reasonix 缓存命中统计 -->
+    <string name="reasonix_cache_hit_rate">前缀缓存命中率: %1$d%%</string>
+    <string name="reasonix_cache_hit_detail">缓存命中: %1$d / 总输入: %2$d</string>
 
 </resources>

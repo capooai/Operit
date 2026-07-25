@@ -195,6 +195,12 @@ kotlin {
     }
 }
 
+// correctErrorTypes=true: 降低 kapt 在 stub 含错误类型时直接崩溃的概率
+// 不设置 includeCompileClasspath（Kotlin 2.2 / kapt 对其支持不稳定）
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation("com.github.jelmerk:hnswlib-core:1.2.1")
     implementation(project(":dragonbones"))

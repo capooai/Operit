@@ -131,7 +131,12 @@ private fun getOpenSourceLibraries(): List<OpenSourceLibrary> {
         OpenSourceLibrary("kotlin-logging", "Lightweight logging framework for Kotlin", "Apache-2.0", "https://github.com/oshai/kotlin-logging"),
         OpenSourceLibrary("sherpa-ncnn", "Real-time speech recognition with Next-gen Kaldi", "Apache-2.0", "https://github.com/k2-fsa/sherpa-ncnn"),
         OpenSourceLibrary("sherpa-mnn", "Speech recognition with MNN backend", "Apache-2.0", "https://github.com/k2-fsa/sherpa-mnn"),
-        OpenSourceLibrary("SLF4J", "Simple Logging Facade for Java", "MIT", "https://www.slf4j.org/")
+        OpenSourceLibrary("SLF4J", "Simple Logging Facade for Java", "MIT", "https://www.slf4j.org/"),
+
+        // Reasonix & related
+        OpenSourceLibrary("DeepSeek-Reasonix", "AI coding agent with Prefix Cache, BM25, Plan Mode", "Apache-2.0", "https://github.com/nicepkg/DeepSeek-Reasonix"),
+        OpenSourceLibrary("hnswlib", "HNSW approximate nearest neighbor search", "Apache-2.0", "https://github.com/jelmerk/hnswlib"),
+        OpenSourceLibrary("llama.cpp", "LLM inference in C/C++", "MIT", "https://github.com/ggml-org/llama.cpp")
     ).sortedBy { it.name }
 }
 

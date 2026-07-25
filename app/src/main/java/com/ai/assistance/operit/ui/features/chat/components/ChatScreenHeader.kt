@@ -120,6 +120,7 @@ fun ChatScreenHeader(
     val maxWindowSizeInK by actualViewModel.maxWindowSizeInK.collectAsState()
     val inputTokenCount by actualViewModel.inputTokenCount.collectAsState()
     val outputTokenCount by actualViewModel.outputTokenCount.collectAsState()
+    val cachedInputTokenCount by actualViewModel.cachedInputTokenCount.collectAsState()
 
     val permissionLauncher =
         rememberLauncherForActivityResult(
@@ -259,6 +260,35 @@ fun ChatScreenHeader(
                             onClick = {},
                             enabled = false
                     )
+
+                    // Reasonix 缓存命中统计
+                    val cacheHitRate = if (cachedInputTokenCount > 0 && inputTokenCount > 0) {
+                        (cachedInputTokenCount.toFloat() / (cachedInputTokenCount + inputTokenCount) * 100).toInt()
+                    } else 0
+                    if (cacheHitRate > 0) {
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.reasonix_cache_hit_rate, cacheHitRate),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.tertiary
+                                )
+                            },
+                            onClick = {},
+                            enabled = false
+                        )
+                        DropdownMenuItem(
+                            text = {
+                                Text(
+                                    stringResource(R.string.reasonix_cache_hit_detail, cachedInputTokenCount.toInt(), (cachedInputTokenCount + inputTokenCount).toInt()),
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
+                                )
+                            },
+                            onClick = {},
+                            enabled = false
+                        )
+                    }
                     
                 }
             }
