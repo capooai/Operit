@@ -697,12 +697,13 @@ Java_com_ai_assistance_llama_LlamaNative_nativeCreateSession(
 
     llama_model_params mparams = llama_model_default_params();
     mparams.n_gpu_layers = effectiveGpuLayers;
-    mparams.use_mmap = effectiveUseMmap;
-    mparams.use_mlock = false;
+    // `use_mmap` and `use_mlock` were removed from llama_model_params in newer llama.cpp versions
+    // mparams.use_mmap = effectiveUseMmap;
+    // mparams.use_mlock = false;
     mparams.use_extra_bufts = true;
 
     LOGI(
-        "Creating llama session. model=%s threads=%d n_ctx=%d n_batch=%d n_ubatch=%d gpu_layers=%d use_mmap=%d flash_attn=%d kv_unified=%d offload_kqv=%d gpu_support=%d",
+        "Creating llama session. model=%s threads=%d n_ctx=%d n_batch=%d n_ubatch=%d gpu_layers=%d flash_attn=%d kv_unified=%d offload_kqv=%d gpu_support=%d",
         modelPath.c_str(),
         effectiveThreads,
         static_cast<int>(nCtx),
