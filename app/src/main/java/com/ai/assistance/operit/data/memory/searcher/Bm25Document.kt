@@ -5,7 +5,7 @@ package com.ai.assistance.operit.data.memory.searcher
  *
  * 从 Bm25Searcher.kt 独立出来，避免 kapt stub 生成时的类冲突。
  */
-data class SearchDocument(
+data class Bm25Document(
     val id: Long,
     val title: String,
     val content: String

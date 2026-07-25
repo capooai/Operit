@@ -45,7 +45,7 @@ class Bm25Searcher {
      */
     fun search(
         query: String,
-        documents: List<SearchDocument>,
+        documents: List<Bm25Document>,
         topK: Int = DEFAULT_TOP_K
     ): List<ScoredDocument> {
         if (query.isBlank() || documents.isEmpty()) return emptyList()
@@ -102,7 +102,7 @@ class Bm25Searcher {
      */
     fun searchMultiQuery(
         queries: List<String>,
-        documents: List<SearchDocument>,
+        documents: List<Bm25Document>,
         topK: Int = DEFAULT_TOP_K
     ): List<ScoredDocument> {
         val allResults = queries.flatMap { query ->
@@ -169,7 +169,7 @@ class Bm25Searcher {
     /** 计算每个查询词的文档频率 */
     private fun computeDocFrequencies(
         queryTokens: List<String>,
-        documents: List<SearchDocument>
+        documents: List<Bm25Document>
     ): Map<String, Float> {
         val frequencies = mutableMapOf<String, Int>()
 
