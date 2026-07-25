@@ -22,7 +22,7 @@ import org.json.JSONObject
  * 继承自OpenAIProvider，以重用大部分兼容逻辑，但特别处理了`reasoning_content`参数。
  * 当启用推理模式时，会将assistant消息中的<think>标签内容提取出来作为reasoning_content字段。
  */
-class DeepseekProvider(
+open class DeepseekProvider(
     apiEndpoint: String,
     apiKeyProvider: ApiKeyProvider,
     modelName: String,
