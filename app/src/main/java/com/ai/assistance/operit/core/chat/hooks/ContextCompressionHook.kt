@@ -2,7 +2,6 @@ package com.ai.assistance.operit.core.chat.hooks
 
 import android.content.Context
 import android.util.Log
-import com.ai.assistance.operit.api.chat.EnhancedAIService
 import com.ai.assistance.operit.core.chat.context.ContextManager
 
 /**

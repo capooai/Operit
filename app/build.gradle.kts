@@ -195,11 +195,9 @@ kotlin {
     }
 }
 
-// kapt 配置：避免新版 Kotlin 中 kapt 类路径冲突
-// includeCompileClasspath=false: 防止编译类与 stub 类产生 duplicate class
-// correctErrorTypes=true: 允许 kapt 忽略 stub 中的类型错误不影响注解处理器
+// correctErrorTypes=true: 降低 kapt 在 stub 含错误类型时直接崩溃的概率
+// 不设置 includeCompileClasspath（Kotlin 2.2 / kapt 对其支持不稳定）
 kapt {
-    includeCompileClasspath = false
     correctErrorTypes = true
 }
 

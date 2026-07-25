@@ -2,10 +2,6 @@ package com.ai.assistance.operit.core.workflow.planner
 
 import android.content.Context
 import android.util.Log
-import com.ai.assistance.operit.api.chat.EnhancedAIService
-import com.ai.assistance.operit.api.chat.llmprovider.AIService
-import com.ai.assistance.operit.data.model.FunctionType
-import com.ai.assistance.operit.data.model.PromptFunctionType
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 

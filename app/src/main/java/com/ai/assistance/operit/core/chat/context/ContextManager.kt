@@ -52,6 +52,21 @@ class ContextManager(
 
         /** 用于 token 估算的简单比率（字符数 → token 数） */
         private const val CHARS_PER_TOKEN = 3.5f
+
+        /** 只读工具列表 */
+        val READ_ONLY_TOOLS = setOf(
+            "read_file", "grep", "glob", "web_fetch", "web_search",
+            "list_files", "file_info", "diff", "preview",
+            "query_memory", "search_memory", "get_memory_by_title",
+            "history_search"
+        )
+
+        /** 有副作用的工具列表 */
+        val SIDE_EFFECT_TOOLS = setOf(
+            "bash", "shell", "write_file", "edit_file", "multi_edit",
+            "move_file", "delete_file", "create_file", "mkdir",
+            "execute_command", "npm_install", "git_commit", "git_push"
+        )
     }
 
     // 压缩状态
@@ -148,7 +163,7 @@ class ContextManager(
      *
      * @return 裁剪的消息数量
      */
-    private fun snipStaleToolResults(messages: MutableList<PromptTurn>): Int {
+    fun snipStaleToolResults(messages: MutableList<PromptTurn>): Int {
         var count = 0
         // 保留最近的 recentKeep 条消息不裁剪
         val safeIndex = maxOf(0, messages.size - recentKeep)
@@ -209,7 +224,7 @@ class ContextManager(
         if (!force) {
             val foldTokens = estimateTokens(messages.subList(pinEnd, tailStart))
             if (foldTokens < foldEconomicsThreshold) {
-                Log.d(TAG, "Fold region too small ($foldTokens tokens < $foldEconomicsEconomicsThreshold) — skipping")
+                Log.d(TAG, "Fold region too small ($foldTokens tokens < $foldEconomicsThreshold) — skipping")
                 return@withContext 0
             }
         }
@@ -518,22 +533,5 @@ class ContextManager(
         } catch (e: Exception) {
             Log.e(TAG, "Failed to archive fold region", e)
         }
-    }
-
-    companion object {
-        /** 只读工具列表 */
-        val READ_ONLY_TOOLS = setOf(
-            "read_file", "grep", "glob", "web_fetch", "web_search",
-            "list_files", "file_info", "diff", "preview",
-            "query_memory", "search_memory", "get_memory_by_title",
-            "history_search"
-        )
-
-        /** 有副作用的工具列表 */
-        val SIDE_EFFECT_TOOLS = setOf(
-            "bash", "shell", "write_file", "edit_file", "multi_edit",
-            "move_file", "delete_file", "create_file", "mkdir",
-            "execute_command", "npm_install", "git_commit", "git_push"
-        )
     }
 }

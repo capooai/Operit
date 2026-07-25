@@ -207,7 +207,7 @@ class ReasonixDeepseekProvider(
         tools?.forEach { tool ->
             digest.update(tool.name.toByteArray())
             // 只取描述的前 50 字节作为签名
-            tool.description?.take(50)?.let { digest.update(it.toByteArray()) }
+            digest.update(tool.description.take(50).toByteArray())
         }
 
         // 用户消息数目（标志增长）
@@ -215,7 +215,7 @@ class ReasonixDeepseekProvider(
             it.kind == com.ai.assistance.operit.core.chat.hooks.PromptTurnKind.USER ||
             it.kind == com.ai.assistance.operit.core.chat.hooks.PromptTurnKind.SUMMARY
         }
-        digest.update(userCount.toByteArray())
+        digest.update(userCount.toString().toByteArray())
 
         return digest.digest().joinToString("") { "%02x".format(it) }.take(16)
     }
@@ -227,7 +227,7 @@ class ReasonixDeepseekProvider(
         val digest = MessageDigest.getInstance("MD5")
         tools.sortedBy { it.name }.forEach { tool ->
             digest.update(tool.name.toByteArray())
-            tool.description?.let { digest.update(it.take(200).toByteArray()) }
+            digest.update(tool.description.take(200).toByteArray())
         }
         return digest.digest().joinToString("") { "%02x".format(it) }
     }

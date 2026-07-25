@@ -259,7 +259,7 @@ class CheckpointManager(private val appContext: Context) {
 
     /** 从文件加载检查点 */
     private fun loadCheckpoint(checkpointId: String): Checkpoint? {
-        val file = getCheckpointFile(checkpointId) ?: return null
+        val file = getCheckpointFile(checkpointId)
         if (!file.exists()) return null
 
         return try {
@@ -267,13 +267,15 @@ class CheckpointManager(private val appContext: Context) {
             val messagesArray = json.getJSONArray("messages")
             val messages = (0 until messagesArray.length()).map { i ->
                 val msgJson = messagesArray.getJSONObject(i)
+                val rawToolName = msgJson.optString("toolName", "")
                 PromptTurn(
                     kind = PromptTurnKind.valueOf(msgJson.getString("kind")),
                     content = msgJson.getString("content"),
-                    toolName = msgJson.optString("toolName", null)
+                    toolName = rawToolName.takeIf { it.isNotBlank() }
                 )
             }
 
+            val rawParent = json.optString("parentCheckpointId", "")
             Checkpoint(
                 id = json.getString("id"),
                 chatId = json.getString("chatId"),
@@ -283,7 +285,7 @@ class CheckpointManager(private val appContext: Context) {
                 contextDigest = json.getString("contextDigest"),
                 tokenCount = json.getInt("tokenCount"),
                 createdAt = json.getLong("createdAt"),
-                parentCheckpointId = json.optString("parentCheckpointId", null)
+                parentCheckpointId = rawParent.takeIf { it.isNotBlank() && it != "null" }
             )
         } catch (e: Exception) {
             Log.e(TAG, "Failed to load checkpoint $checkpointId", e)
@@ -319,10 +321,11 @@ class CheckpointManager(private val appContext: Context) {
 
         val files = dir.listFiles { f -> f.extension == "json" }
             ?.sortedBy { it.lastModified() }
+            ?.toMutableList()
             ?: return
 
         while (files.size > MAX_CHECKPOINTS_PER_CHAT) {
-            val oldest = files.removeFirst()
+            val oldest = files.removeAt(0)
             oldest.delete()
             Log.d(TAG, "Removed oldest checkpoint: ${oldest.name}")
         }

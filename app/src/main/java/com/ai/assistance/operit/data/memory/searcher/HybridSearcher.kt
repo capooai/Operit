@@ -65,7 +65,7 @@ class HybridSearcher(
 
         // BM25 排名
         for ((rank, result) in bm25Results.withIndex()) {
-            val rrfScore = 1.0f / (rrfK + rank + 1)
+            val contribution = (1.0f / (rrfK + rank + 1)) * bm25Weight
             fusedScores.getOrPut(result.id) {
                 HybridSearchResult.Builder(id = result.id)
             }.apply {
@@ -73,7 +73,7 @@ class HybridSearcher(
                 snippet = result.snippet
                 bm25Score = result.score
                 bm25Rank = rank
-                rrfScore += rrfScore * bm25Weight
+                rrfScore += contribution
                 sources.add("bm25")
             }
         }
@@ -84,13 +84,13 @@ class HybridSearcher(
             .take(topK * 2)
 
         for ((rank, entry) in sortedHnsw.withIndex()) {
-            val rrfScore = 1.0f / (rrfK + rank + 1)
+            val contribution = (1.0f / (rrfK + rank + 1)) * (1.0f - bm25Weight)
             fusedScores.getOrPut(entry.key) {
                 HybridSearchResult.Builder(id = entry.key)
             }.apply {
                 vectorScore = entry.value
                 vectorRank = rank
-                rrfScore += rrfScore * (1.0f - bm25Weight)
+                rrfScore += contribution
                 sources.add("hnsw")
             }
         }
