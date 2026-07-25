@@ -195,6 +195,11 @@ kotlin {
     }
 }
 
+// kapt 配置：避免新版 Kotlin 中编译类路径与 stub 类路径冲突导致 duplicate class 错误
+kapt {
+    includeCompileClasspath = false
+}
+
 dependencies {
     implementation("com.github.jelmerk:hnswlib-core:1.2.1")
     implementation(project(":dragonbones"))
