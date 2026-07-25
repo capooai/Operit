@@ -1,8 +1,6 @@
 package com.ai.assistance.operit.data.memory.searcher
 
 import kotlin.math.ln
-import kotlin.math.log10
-import kotlin.math.sqrt
 
 /**
  * BM25 关键词搜索算法，移植自 DeepSeek-Reasonix 的 bm25.go。
@@ -47,7 +45,7 @@ class Bm25Searcher {
      */
     fun search(
         query: String,
-        documents: List<Document>,
+        documents: List<SearchDocument>,
         topK: Int = DEFAULT_TOP_K
     ): List<ScoredDocument> {
         if (query.isBlank() || documents.isEmpty()) return emptyList()
@@ -104,7 +102,7 @@ class Bm25Searcher {
      */
     fun searchMultiQuery(
         queries: List<String>,
-        documents: List<Document>,
+        documents: List<SearchDocument>,
         topK: Int = DEFAULT_TOP_K
     ): List<ScoredDocument> {
         val allResults = queries.flatMap { query ->
@@ -171,7 +169,7 @@ class Bm25Searcher {
     /** 计算每个查询词的文档频率 */
     private fun computeDocFrequencies(
         queryTokens: List<String>,
-        documents: List<Document>
+        documents: List<SearchDocument>
     ): Map<String, Float> {
         val frequencies = mutableMapOf<String, Int>()
 
@@ -217,12 +215,3 @@ class Bm25Searcher {
         ).flatMap { it.asSequence() }.toSet()
     }
 }
-
-/**
- * BM25 搜索的输入文档类型
- */
-data class Document(
-    val id: Long,
-    val title: String,
-    val content: String
-)

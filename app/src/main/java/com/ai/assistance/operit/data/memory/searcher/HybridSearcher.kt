@@ -33,7 +33,7 @@ class HybridSearcher(
      */
     fun hybridSearch(
         query: String,
-        documents: List<Document>,
+        documents: List<SearchDocument>,
         hnswResults: Map<Long, Float>,
         topK: Int = 10
     ): List<HybridSearchResult> {
@@ -107,7 +107,7 @@ class HybridSearcher(
      */
     fun searchBm25Only(
         query: String,
-        documents: List<Document>,
+        documents: List<SearchDocument>,
         topK: Int = 10
     ): List<Bm25Searcher.ScoredDocument> {
         return bm25Searcher.search(query, documents, topK)
