@@ -4376,6 +4376,10 @@
     <string name="github_account">GitHub 账户</string>
     <string name="login_github">登录 GitHub</string>
     <string name="github_login_external_waiting">已打开浏览器，请在完成授权后返回应用。</string>
+    <string name="github_login_method_description">请选择 GitHub 登录方式。内嵌方式适用于无法打开外部浏览器的设备，外部浏览器方式提供更好的兼容性。</string>
+    <string name="github_login_method_embedded">使用内嵌页面登录</string>
+    <string name="github_login_method_external">使用外部浏览器登录</string>
+    <string name="github_login_external_cancelled">GitHub 授权已取消</string>
     <string name="publish_mcp_plugins_to_market">• 发布您的 MCP 插件到市场</string>
     <string name="manage_published_plugins">• 管理您已发布的插件</string>
     <string name="better_installation_experience">• 获得更好的安装体验</string>
