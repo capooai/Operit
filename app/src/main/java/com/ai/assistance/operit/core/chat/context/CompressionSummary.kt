@@ -53,7 +53,7 @@ data class CompressionSummary(
 
     companion object {
         /** 用于请求 LLM 生成摘要的系统提示模板 */
-        const val SUMMARY_SYSTEM_PROMPT = """
+        val SUMMARY_SYSTEM_PROMPT = """
 You are a conversation summarizer for an AI coding agent.
 Compress the following conversation into a structured summary organized by these sections:
 

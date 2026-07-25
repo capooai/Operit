@@ -22,6 +22,15 @@ class Bm25Searcher {
         private const val B = 0.75f
         private const val DEFAULT_TOP_K = 10
         private const val SCORE_FLOOR = 0.15f
+
+        /** CJK Unicode 范围 */
+        private val CJK_RANGES = setOf(
+            '\u4E00'..'\u9FFF',   // CJK 统一表意文字
+            '\u3400'..'\u4DBF',   // CJK 扩展 A
+            '\uF900'..'\uFAFF',   // CJK 兼容表意文字
+            '\u3000'..'\u303F',   // CJK 符号和标点
+            '\uFF00'..'\uFFEF'    // 全角形式
+        ).flatMap { it.asSequence() }.toSet()
     }
 
     /**
@@ -211,16 +220,5 @@ class Bm25Searcher {
         val snippet = snippetTokens.joinToString(" ")
 
         return if (snippet.length > maxLen) snippet.take(maxLen) + "..." else snippet
-    }
-
-    companion object {
-        /** CJK Unicode 范围 */
-        private val CJK_RANGES = setOf(
-            '\u4E00'..'\u9FFF',   // CJK 统一表意文字
-            '\u3400'..'\u4DBF',   // CJK 扩展 A
-            '\uF900'..'\uFAFF',   // CJK 兼容表意文字
-            '\u3000'..'\u303F',   // CJK 符号和标点
-            '\uFF00'..'\uFFEF'    // 全角形式
-        ).flatMap { it.asSequence() }.toSet()
     }
 }
