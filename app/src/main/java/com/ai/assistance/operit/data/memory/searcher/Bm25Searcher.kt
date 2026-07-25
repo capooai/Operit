@@ -25,6 +25,15 @@ class Bm25Searcher {
     }
 
     /**
+     * BM25 搜索输入文档类型（内联在 Bm25Searcher 中，避免 kapt 的 duplicate class 问题）。
+     */
+    data class Bm25Document(
+        val id: Long,
+        val title: String,
+        val content: String
+    )
+
+    /**
      * BM25 搜索结果项
      */
     data class ScoredDocument(
